@@ -8,6 +8,8 @@ import streamlit as st
 from PIL import Image
 from pathlib import Path
 
+import re
+
 
 
 #ctk.set_appearance_mode("syste")
@@ -60,13 +62,16 @@ def search_query(query):
 
     return(results)
 
-def get_top_n_file_paths(results, top_n_items=5):
+def get_top_n_file_paths(results, top_n_items=5, local_run =False):
     """
     Get the top N file paths from the results.
     """
     for item in [k[0] for k in results.items()][:top_n_items]:
         doc_id = item
         file_path = df.loc[df['doc_id'] == item, 'image_path'].values[0]
+        if not local_run:
+            file_path = re.sub(r'c:\\Users\\User\\Documents\\DCU_MSC\\Semester4\\Mechanics of search\\Assignment_2\\', '', file_path)
+            #print(file_path)
         image_caption = df.loc[df['doc_id'] == item, 'caption'].values[0]
         yield [file_path,image_caption]
 
@@ -103,7 +108,7 @@ if st.button("Search"):
         found_images = search_query(query)
         if found_images:
             #st.success(f"Found {len(found_images)} image(s).")
-            for index, img_path in enumerate(get_top_n_file_paths(found_images, 30)):
+            for index, img_path in enumerate(get_top_n_file_paths(found_images, 10)):
                 image = Image.open(img_path[0])
                 with cols[index % num_columns]:
                     st.image(image, caption=img_path[1], use_container_width=True)
