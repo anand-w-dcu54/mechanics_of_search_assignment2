@@ -1,6 +1,5 @@
 import os
-import tkinter as tk
-#import customtkinter as ctk
+
 import pandas as pd
 import search_engine as se
 from PIL import Image, ImageTk
