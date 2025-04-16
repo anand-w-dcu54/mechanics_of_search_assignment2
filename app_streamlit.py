@@ -1,5 +1,6 @@
 import os
-
+import nltk
+nltk.download('stopwords')
 import pandas as pd
 import search_engine as se
 from PIL import Image, ImageTk
