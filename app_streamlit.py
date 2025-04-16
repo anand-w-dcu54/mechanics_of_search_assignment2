@@ -71,7 +71,7 @@ def get_top_n_file_paths(results, top_n_items=5, local_run =False):
         doc_id = item
         file_path = df.loc[df['doc_id'] == item, 'image_path'].values[0]
         if not local_run:
-            file_path = re.sub(r'c:\\Users\\User\\Documents\\DCU_MSC\\Semester4\\Mechanics of search\\Assignment_2\\', '', file_path)
+            file_path = re.sub(r'c:\\Users\\User\\Documents\\DCU_MSC\\Semester4\\Mechanics of search\\Assignment_2\\Image_db\\', 'Image_db/', file_path)
             #print(file_path)
         image_caption = df.loc[df['doc_id'] == item, 'caption'].values[0]
         yield [file_path,image_caption]
