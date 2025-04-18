@@ -110,9 +110,14 @@ if st.button("Search"):
         if found_images:
             #st.success(f"Found {len(found_images)} image(s).")
             for index, img_path in enumerate(get_top_n_file_paths(found_images, 10)):
-                image = Image.open(img_path[0])
-                with cols[index % num_columns]:
-                    st.image(image, caption=img_path[1], use_container_width=True)
+                if os.path.exists(img_path[0]):
+                    image = Image.open(img_path[0])
+                    with cols[index % num_columns]:
+                        st.image(image, caption=img_path[1], use_container_width=True)
+                   
+                else:
+                    st.error(f"Image path not found: {img_path[0]} This is due to the the limit github sets of allowing only 1000 files to be uploaded to the repo")
+                
                 #st.image(image, caption=img_path.name, use_column_width=True)
         else:
             st.error("No images found matching your query.")
